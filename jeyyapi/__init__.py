@@ -9,7 +9,7 @@ class ApiError(Exception):
 
 class JeyyAPIClient:
 	def __init__(self, *, session: aiohttp.ClientSession = None) -> None:
-		self.session = session or aiohttp.ClientSession
+		self.session = session or aiohttp.ClientSession()
 		self.base_url = 'https://api.jeyy.xyz'
 
 	async def close(self) -> None:
