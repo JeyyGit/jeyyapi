@@ -14,7 +14,7 @@ client = JeyyAPIClient()
 image = await client.hearts(image_url='IMAGE_URL', rainbow=True)
 ```
 
-### spotify command example on discord.py2 (2.0)
+### spotify command example on discord.py (2.0)
 ```
 from jeyyapi import JeyyAPIClient
 
@@ -39,3 +39,5 @@ async def spotify(ctx, member: discord.Member=None):
     
     await ctx.send(f"> **{member}** is listening to **{spotify.title}**", file=discord.File(image, 'spotify.png'))
 ```
+
+#### Close the client session with `await client.close()` if you didn't pass your own session
