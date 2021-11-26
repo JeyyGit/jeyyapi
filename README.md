@@ -1,5 +1,5 @@
 # jeyyapi (async)
-Async python wrapper for JeyyAPI
+Async python wrapper for [JeyyAPI](https://api.jeyy.xyz)
 
 # Example usage
 ```py
