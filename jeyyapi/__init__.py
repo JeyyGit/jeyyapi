@@ -11,7 +11,7 @@ class APIError(Exception):
 
 class JeyyAPIClient:
 	def __init__(self, *, session: typing.Optional[aiohttp.ClientSession] = None) -> None:
-		self.session: aiohttp.ClientSession = session or aiohttp.ClientSession()
+		self.session: typing.Optional[aiohttp.ClientSession] = session or aiohttp.ClientSession()
 		self.base_url: yarl.URL = yarl.URL('https://api.jeyy.xyz/')
 
 	async def close(self) -> None:
