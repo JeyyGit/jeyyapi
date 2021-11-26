@@ -15,7 +15,7 @@ image = await client.hearts(image_url='IMAGE_URL', rainbow=True)
 ```
 
 ### spotify command example on discord.py (2.0)
-```
+```py
 from jeyyapi import JeyyAPIClient
 
 client = JeyyAPIClient()
