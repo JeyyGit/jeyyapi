@@ -100,9 +100,21 @@ class JeyyAPIClient:
 	
 	def magnify(self, image_url: str) -> BytesIO:
 		return self._image_fetch('magnify', image_url=str(image_url))
+
+	def print(self, image_url: str) -> BytesIO:
+		return self._image_fetch('print', image_url=str(image_url))
+
+	def matrix(self, image_url: str) -> BytesIO:
+		return self._image_fetch('matrix', image_url=str(image_url))
+
+	def sensitive(self, image_url: str) -> BytesIO:
+		return self._image_fetch('sensitive', image_url=str(image_url))
 	
 	def gallery(self, image_url: str) -> BytesIO:
 		return self._image_fetch('gallery', image_url=str(image_url))
+
+	def paparazzi(self, image_url: str) -> BytesIO:
+		return self._image_fetch('paparazzi', image_url=str(image_url))
 	
 	def balls(self, image_url: str) -> BytesIO:
 		return self._image_fetch('balls', image_url=str(image_url))
@@ -119,6 +131,9 @@ class JeyyAPIClient:
 	def optics(self, image_url: str) -> BytesIO:
 		return self._image_fetch('optics', image_url=str(image_url))
 	
+	def youtube(self, avatar_url: str, author: str, title: str) -> BytesIO:
+		return self._image_fetch('youtube', avatar_url=str(avatar_url), author=str(author), title=str(title))
+
 	def scrapbook(self, text: str) -> BytesIO:
 		return self._image_fetch('scrapbook', text=str(text))
 
@@ -136,12 +151,12 @@ class JeyyAPIClient:
 	# discord
 	async def spotify(self, title: str, cover_url: str, duration: typing.Union[datetime.timedelta, int, float], start: typing.Union[datetime.datetime, float], artists: typing.List[str]) -> BytesIO:
 		if isinstance(duration, datetime.timedelta):
-			duration = int(spotify.duration.seconds)
+			duration = int(duration.seconds)
 		else:
 			duration = int(duration)
 			
 		if isinstance(start, datetime.datetime):
-			start = float(spotify.start.timestamp())
+			start = float(start.timestamp())
 		else:
 			start = float(start)
 		
@@ -151,6 +166,27 @@ class JeyyAPIClient:
 			'duration_seconds': duration,
 			'start_timestamp': start,
 			'artists': artists
+		}
+
+		async with self.session.get(self.base_url / 'discord/spotify', params=params) as resp:
+			if resp.status != 200:
+				raise APIError(await resp.text())
+			
+			data = await resp.read()
+
+		buffer = BytesIO(data)
+		return buffer
+
+	async def spotify_from_object(self, spotify: 'discord.Spotify'):
+		if spotify.__class__.__name__ != 'Spotify':
+			raise APIError(f'discord.Spotify object is required, not {spotify.__class__.__name__} object.')
+
+		params = {
+			'title': spotify.title,
+			'cover_url': spotify.album_cover_url,
+			'duration_seconds': spotify.duration.seconds,
+			'start_timestamp': spotify.start.timestamp(),
+			'artists': spotify.artists
 		}
 
 		async with self.session.get(self.base_url / 'discord/spotify', params=params) as resp:
