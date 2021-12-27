@@ -177,9 +177,9 @@ class JeyyAPIClient:
 		buffer = BytesIO(data)
 		return buffer
 
-	async def spotify_from_object(self, spotify: 'discord.Spotify'):
+	async def spotify_from_object(self, spotify: 'discord.Spotify') -> BytesIO:
 		if spotify.__class__.__name__ != 'Spotify':
-			raise APIError(f'discord.Spotify object is required, not {spotify.__class__.__name__} object.')
+			raise APIError(f'discord.Spotify is expected, {spotify.__class__.__name__} is passed instead.')
 
 		kwargs = {
 			'title': spotify.title,
