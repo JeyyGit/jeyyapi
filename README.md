@@ -27,15 +27,9 @@ async def spotify(ctx, member: discord.Member=None):
     spotify = discord.utils.find(lambda a: isinstance(a, discord.Spotify), member.activities)
     
     if spotify is None:
-      return await ctx.send(f"**{member}** is not listening or connected to Spotify.")
+        return await ctx.send(f"**{member}** is not listening or connected to Spotify.")
     
-    image = await client.spotify(
-      title = spotify.title,
-      cover_url = spotify.album_cover_url,
-      duration = spotify.duration.seconds,
-      start = spotify.start.timestamp(),
-      artists = spotify.artists
-    )
+    image = await client.spotify_from_object(spotify)
     
     await ctx.send(f"> **{member}** is listening to **{spotify.title}**", file=discord.File(image, 'spotify.png'))
 ```
