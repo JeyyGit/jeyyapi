@@ -181,19 +181,13 @@ class JeyyAPIClient:
 		if spotify.__class__.__name__ != 'Spotify':
 			raise APIError(f'discord.Spotify object is required, not {spotify.__class__.__name__} object.')
 
-		params = {
+		kwargs = {
 			'title': spotify.title,
 			'cover_url': spotify.album_cover_url,
-			'duration_seconds': spotify.duration.seconds,
-			'start_timestamp': spotify.start.timestamp(),
+			'duration': spotify.duration.seconds,
+			'start': spotify.start.timestamp(),
 			'artists': spotify.artists
 		}
 
-		async with self.session.get(self.base_url / 'discord/spotify', params=params) as resp:
-			if resp.status != 200:
-				raise APIError(await resp.text())
-			
-			data = await resp.read()
-
-		buffer = BytesIO(data)
-		return buffer
+		return await self.spotify(**kwargs)
+	
