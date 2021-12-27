@@ -32,8 +32,8 @@ async def spotify(ctx, member: discord.Member=None):
     image = await client.spotify(
       title = spotify.title,
       cover_url = spotify.album_cover_url,
-      duration_seconds = spotify.duration.seconds,
-      start_timestamp = spotify.start.timestamp(),
+      duration = spotify.duration.seconds,
+      start = spotify.start.timestamp(),
       artists = spotify.artists
     )
     
