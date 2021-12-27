@@ -127,6 +127,9 @@ class JeyyAPIClient:
 	
 	def roll(self, image_url: str) -> BytesIO:
 		return self._image_fetch('roll', image_url=str(image_url))
+
+	def clock(self, image_url: str) -> BytesIO:
+		return self._image_fetch('clock', image_url=str(image_url))
 	
 	def optics(self, image_url: str) -> BytesIO:
 		return self._image_fetch('optics', image_url=str(image_url))
@@ -179,7 +182,7 @@ class JeyyAPIClient:
 
 	async def spotify_from_object(self, spotify: 'discord.Spotify') -> BytesIO:
 		if spotify.__class__.__name__ != 'Spotify':
-			raise APIError(f'discord.Spotify is expected, {spotify.__class__.__name__} is passed instead.')
+			raise TypeError(f'discord.Spotify is expected, {spotify.__class__.__name__} is passed instead.')
 
 		kwargs = {
 			'title': spotify.title,
