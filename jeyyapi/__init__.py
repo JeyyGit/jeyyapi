@@ -11,11 +11,23 @@ class APIError(Exception):
 
 class JeyyAPIClient:
 	def __init__(self, *, session: typing.Optional[aiohttp.ClientSession] = None) -> None:
-		self.session: aiohttp.ClientSession = session or aiohttp.ClientSession()
 		self.base_url: yarl.URL = yarl.URL('https://api.jeyy.xyz/')
+		self.new_session = False
+		if session is None:
+			self.session = aiohttp.ClientSession()
+			self.new_session = True
+		else:
+			self.session = session
 
 	async def close(self) -> None:
-		await self.session.close()
+		if self.new_session:
+			await self.session.close()
+
+	async def __aenter__(self):
+		return self
+
+	async def __aexit__(self, exc_type, exc, tb):
+		await self.close()
 
 	# image
 	async def _image_fetch(self, endpoint, **params) -> BytesIO:
@@ -134,6 +146,9 @@ class JeyyAPIClient:
 	def optics(self, image_url: str) -> BytesIO:
 		return self._image_fetch('optics', image_url=str(image_url))
 	
+	def warp(self, image_url: str) -> BytesIO:
+		return self._image_fetch('warp', image_url=str(image_url))
+
 	def youtube(self, avatar_url: str, author: str, title: str) -> BytesIO:
 		return self._image_fetch('youtube', avatar_url=str(avatar_url), author=str(author), title=str(title))
 
@@ -193,4 +208,3 @@ class JeyyAPIClient:
 		}
 
 		return await self.spotify(**kwargs)
-	
