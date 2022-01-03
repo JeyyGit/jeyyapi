@@ -21,6 +21,9 @@ class JeyyAPIClient:
 
 	async def close(self) -> None:
 		if self.new_session:
+			if self.session.closed:
+				raise TypeError('session is already closed')
+				
 			await self.session.close()
 
 	async def __aenter__(self):
