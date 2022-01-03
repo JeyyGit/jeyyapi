@@ -25,6 +25,8 @@ class JeyyAPIClient:
 				raise TypeError('session is already closed')
 				
 			await self.session.close()
+		else:
+			raise TypeError('session was created manually. call .close() on the session instead.')
 
 	async def __aenter__(self):
 		if self.session.closed:
@@ -34,7 +36,7 @@ class JeyyAPIClient:
 
 	async def __aexit__(self, exc_type, exc, tb):
 		try:
-			await self.session.close() # That's probably the only point of an async context manager
+			await self.close() # That's probably the only point of an async context manager
 		except:
 			pass
 
