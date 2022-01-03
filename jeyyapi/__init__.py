@@ -36,7 +36,7 @@ class JeyyAPIClient:
 
 	async def __aexit__(self, exc_type, exc, tb):
 		try:
-			await self.close() # That's probably the only point of an async context manager
+			await self.close() # That's probably the only point of an async context manager. See https://github.com/JeyyGit/jeyyapi/pull/4
 		except:
 			pass
 
