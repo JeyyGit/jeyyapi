@@ -27,10 +27,16 @@ class JeyyAPIClient:
 			await self.session.close()
 
 	async def __aenter__(self):
+		if self.session.closed:
+			raise TypeError('session has closed')
+			
 		return self
 
 	async def __aexit__(self, exc_type, exc, tb):
-		await self.close()
+		try:
+			await self.session.close() # That's probably the only point of an async context manager
+		except:
+			pass
 
 	# image
 	async def _image_fetch(self, endpoint, **params) -> BytesIO:
