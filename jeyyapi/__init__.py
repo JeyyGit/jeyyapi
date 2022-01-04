@@ -21,13 +21,24 @@ class JeyyAPIClient:
 
 	async def close(self) -> None:
 		if self.new_session:
+			if self.session.closed:
+				raise TypeError('session is already closed')
+				
 			await self.session.close()
+		else:
+			raise TypeError('session was created manually. call .close() on the session instead.')
 
 	async def __aenter__(self):
+		if self.session.closed:
+			raise TypeError('session has closed')
+			
 		return self
 
 	async def __aexit__(self, exc_type, exc, tb):
-		await self.close()
+		try:
+			await self.close() # That's probably the only point of an async context manager. See https://github.com/JeyyGit/jeyyapi/pull/4
+		except:
+			pass
 
 	# image
 	async def _image_fetch(self, endpoint, **params) -> BytesIO:
