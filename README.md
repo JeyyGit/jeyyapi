@@ -1,6 +1,11 @@
 # jeyyapi (async)
 Async python wrapper for [JeyyAPI](https://api.jeyy.xyz)
 
+# Installation
+```bash
+$ pip install git+https://github.com/JeyyGit/jeyyapi.git
+```
+
 # Example usage
 ```py
 # import JeyyAPIClient
