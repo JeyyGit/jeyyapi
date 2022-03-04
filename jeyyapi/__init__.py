@@ -36,7 +36,7 @@ class JeyyAPIClient:
 
 	async def __aexit__(self, exc_type, exc, tb):
 		try:
-			await self.close() # That's probably the only point of an async context manager. See https://github.com/JeyyGit/jeyyapi/pull/4
+			await self.close()
 		except:
 			pass
 
@@ -133,6 +133,18 @@ class JeyyAPIClient:
 	def sensitive(self, image_url: str) -> BytesIO:
 		return self._image_fetch('sensitive', image_url=str(image_url))
 	
+	def dilute(self, image_url: str) -> BytesIO:
+		return self._image_fetch('dilute', image_url=str(image_url))
+
+	def pattern(self, image_url: str) -> BytesIO:
+		return self._image_fetch('pattern', image_url=str(image_url))
+
+	def logoff(self, image_url: str) -> BytesIO:
+		return self._image_fetch('logoff', image_url=str(image_url))
+
+	def ace(self, name: str, side: typing.Literal['attorney', 'prosecutor'], text: str) -> BytesIO:
+		return self._image_fetch('ace', name=str(name), side=str(side), text=str(text))
+
 	def gallery(self, image_url: str) -> BytesIO:
 		return self._image_fetch('gallery', image_url=str(image_url))
 
@@ -159,6 +171,15 @@ class JeyyAPIClient:
 	
 	def warp(self, image_url: str) -> BytesIO:
 		return self._image_fetch('warp', image_url=str(image_url))
+
+	def ads(self, image_url: str) -> BytesIO:
+		return self._image_fetch('ads', image_url=str(image_url))
+
+	def bubble(self, image_url: str) -> BytesIO:
+		return self._image_fetch('bubble', image_url=str(image_url))
+
+	def cloth(self, image_url: str) -> BytesIO:
+		return self._image_fetch('cloth', image_url=str(image_url))
 
 	def youtube(self, avatar_url: str, author: str, title: str) -> BytesIO:
 		return self._image_fetch('youtube', avatar_url=str(avatar_url), author=str(author), title=str(title))
@@ -219,3 +240,60 @@ class JeyyAPIClient:
 		}
 
 		return await self.spotify(**kwargs)
+
+	async def player(self, title: str, thumbnail_url: str, seconds_played: float, total_seconds: float, line_1: typing.Optional[str], line_2: typing.Optional[str]):
+		params = {
+			'title': title,
+			'thumbnail_url': thumbnail_url,
+			'seconds_played': seconds_played,
+			'total_seconds': total_seconds,
+			'line_1': line_1,
+			'line_2': line_2,
+		}
+
+		async with self.session.get(self.base_url / 'discord/player', params=params) as resp:
+			if resp.status != 200:
+				raise APIError(await resp.text())
+			
+			data = await resp.read()
+
+		buffer = BytesIO(data)
+		return buffer
+
+	async def wheel(self, args: typing.Union[typing.List[str], typing.Tuple[str]]) -> dict:
+		async with self.session.get(self.base_url / 'discord/wheel', params={'args': args}) as resp:
+			if resp.status != 200:
+				raise APIError(await resp.text())
+			
+			result = await resp.json()
+
+		return result
+
+	async def ansi(
+		self, 
+		text: str, 
+		bold: bool = False, 
+		underline: bool = False, 
+		text_color: typing.Literal['gray', 'red', 'green', 'yellow', 'blue', 'pink', 'cyan', 'white'] = None,
+		bg_color: typing.Literal['dark blue', 'orange', 'gray 1', 'gray 2', 'gray 3', 'gray 4', 'indigo', 'white'] = None,
+		codeblock: bool = True
+		) -> str:
+
+		params = {
+			'text': text,
+			'bold': str(bold),
+			'underline': str(underline),
+			'text_color': text_color,
+			'bg_color': bg_color,
+			'codeblock': str(codeblock),
+		}
+
+		async with self.session.get(self.base_url / 'discord/ansi', params=params) as resp:
+			if resp.status != 200:
+				raise APIError(await resp.text())
+			
+			result = await resp.json()
+
+		return result
+
+		
