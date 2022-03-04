@@ -8,7 +8,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
 	name='jeyyapi',
-	version='1.0',
+	version='1.1',
 	description='Python wrapper for JeyyAPI',
 	long_description=long_description,
 	url='http://github.com/JeyyGit/jeyyapi',
