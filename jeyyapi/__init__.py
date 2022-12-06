@@ -142,6 +142,144 @@ class JeyyAPIClient:
 	def logoff(self, image_url: str) -> BytesIO:
 		return self._image_fetch('logoff', image_url=str(image_url))
 
+	def dilate(self, image_url: str):
+		return self._image_fetch('dilate', image_url=str(image_url))
+
+	def fire(self, image_url: str):
+		return self._image_fetch('fire', image_url=str(image_url))
+
+	def fan(self, image_url: str):
+		return self._image_fetch('fan', image_url=str(image_url))
+
+	def melt(self, image_url: str):
+		return self._image_fetch('melt', image_url=str(image_url))
+
+	def cracks(self, image_url: str):
+		return self._image_fetch('cracks', image_url=str(image_url))
+
+	def endless(self, image_url: str):
+		return self._image_fetch('endless', image_url=str(image_url))
+
+	def bayer(self, image_url: str):
+		return self._image_fetch('bayer', image_url=str(image_url))
+
+	def slice(self, image_url: str):
+		return self._image_fetch('slice', image_url=str(image_url))
+
+	def spikes(self, image_url: str):
+		return self._image_fetch('spikes', image_url=str(image_url))
+
+	def blocks(self, image_url: str):
+		return self._image_fetch('blocks', image_url=str(image_url))
+
+	def phone(self, image_url: str):
+		return self._image_fetch('phone', image_url=str(image_url))
+
+	def laundry(self, image_url: str):
+		return self._image_fetch('laundry', image_url=str(image_url))
+
+	def pizza(self, image_url: str):
+		return self._image_fetch('pizza', image_url=str(image_url))
+
+	def ripped(self, image_url: str):
+		return self._image_fetch('ripped', image_url=str(image_url))
+
+	def cinema(self, image_url: str):
+		return self._image_fetch('cinema', image_url=str(image_url))
+
+	def stretch(self, image_url: str):
+		return self._image_fetch('stretch', image_url=str(image_url))
+
+	def dots(self, image_url: str):
+		return self._image_fetch('dots', image_url=str(image_url))
+
+	def tunnel(self, image_url: str, direction: typing.Literal['h', 'horizontal', 'v', 'vertical', 'c', 'circle', 'r', 'rotate']):
+		return self._image_fetch('tunnel', image_url=str(image_url), direction=direction)
+
+	def zonk(self, image_url: str):
+		return self._image_fetch('zonk', image_url=str(image_url))
+
+	def knit(self, image_url: str):
+		return self._image_fetch('knit', image_url=str(image_url))
+
+	def plank(self, image_url: str):
+		return self._image_fetch('plank', image_url=str(image_url))
+
+	def shred(self, image_url: str):
+		return self._image_fetch('shred', image_url=str(image_url))
+
+	def liquefy(self, image_url: str):
+		return self._image_fetch('liquefy', image_url=str(image_url))
+
+	def poly(self, image_url: str):
+		return self._image_fetch('poly', image_url=str(image_url))
+
+	def spin(self, image_url: str):
+		return self._image_fetch('spin', image_url=str(image_url))
+
+	def plates(self, image_url: str):
+		return self._image_fetch('plates', image_url=str(image_url))
+
+	def lsd(self, image_url: str):
+		return self._image_fetch('lsd', image_url=str(image_url))
+
+	def lines(self, image_url: str):
+		return self._image_fetch('lines', image_url=str(image_url))
+
+	def ipcam(self, image_url: str):
+		return self._image_fetch('ipcam', image_url=str(image_url))
+
+	def reflection(self, image_url: str):
+		return self._image_fetch('reflection', image_url=str(image_url))
+
+	def stereo(self, image_url: str):
+		return self._image_fetch('stereo', image_url=str(image_url))
+
+	def kanye(self, image_url: str):
+		return self._image_fetch('kanye', image_url=str(image_url))
+
+	def letters(self, image_url: str):
+		return self._image_fetch('letters', image_url=str(image_url))
+
+	def wiggle(self, image_url: str):
+		return self._image_fetch('wiggle', image_url=str(image_url))
+
+	def tiles(self, image_url: str, n_edges: typing.Literal[3, 4, 5, 6, 7, 8] = 4):
+		return self._image_fetch('tiles', image_url=str(image_url), n_edges=n_edges)
+
+	def gameboy_camera(self, image_url: str):
+		return self._image_fetch('gameboy_camera', image_url=str(image_url))
+
+	def ripple(self, image_url: str):
+		return self._image_fetch('ripple', image_url=str(image_url))
+
+	def globe(self, image_url: str):
+		return self._image_fetch('globe', image_url=str(image_url))
+
+	def cow(self, image_url: str):
+		return self._image_fetch('cow', image_url=str(image_url))
+
+	def pyramid(self, image_url: str):
+		return self._image_fetch('pyramid', image_url=str(image_url))
+
+	def wall(self, image_url: str):
+		return self._image_fetch('wall', image_url=str(image_url))
+
+	def cube(self, image_url: str):
+		return self._image_fetch('cube', image_url=str(image_url))
+
+	def paint(self, image_url: str):
+		return self._image_fetch('paint', image_url=str(image_url))
+
+	def shine(self, image_url: str):
+		return self._image_fetch('shine', image_url=str(image_url))
+
+	def neon(self, image_url: str):
+		return self._image_fetch('neon', image_url=str(image_url))
+
+	def flush(self, image_url: str):
+		return self._image_fetch('flush', image_url=str(image_url))
+
 	def ace(self, name: str, side: typing.Literal['attorney', 'prosecutor'], text: str) -> BytesIO:
 		return self._image_fetch('ace', name=str(name), side=str(side), text=str(text))
 
@@ -162,6 +300,9 @@ class JeyyAPIClient:
 	
 	def roll(self, image_url: str) -> BytesIO:
 		return self._image_fetch('roll', image_url=str(image_url))
+
+	def wave(self, image_url: str, frequency: float = 0.05, amplitude: typing.Literal[1, 2, 3, 4, 5] = 1) -> BytesIO:
+		return self._image_fetch('wave', image_url=str(image_url), frequency=frequency, amplitude=amplitude)
 
 	def clock(self, image_url: str) -> BytesIO:
 		return self._image_fetch('clock', image_url=str(image_url))
