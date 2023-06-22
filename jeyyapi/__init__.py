@@ -10,8 +10,9 @@ class APIError(Exception):
 
 
 class JeyyAPIClient:
-	def __init__(self, *, session: typing.Optional[aiohttp.ClientSession] = None) -> None:
-		self.base_url: yarl.URL = yarl.URL('https://api.jeyy.xyz/')
+	def __init__(self, api_key: str, *, session: typing.Optional[aiohttp.ClientSession] = None) -> None:
+		self.base_url: yarl.URL = yarl.URL('https://api.jeyy.xyz/v2/')
+		self.headers = {'Authorization': f'Bearer {api_key}'}
 		self.new_session = False
 		if session is None:
 			self.session = aiohttp.ClientSession()
@@ -43,7 +44,7 @@ class JeyyAPIClient:
 	# image
 	async def _image_fetch(self, endpoint, **params) -> BytesIO:
 		url = self.base_url / f'image/{endpoint}'
-		async with self.session.get(url, params=params) as resp:
+		async with self.session.get(url, params=params, headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 
@@ -331,7 +332,7 @@ class JeyyAPIClient:
 	# text
 	async def emojify(self, image_url: str) -> dict:
 		params = {'image_url': str(image_url)}
-		async with self.session.get(self.base_url / 'text/emojify', params=params) as resp:
+		async with self.session.get(self.base_url / 'text/emojify', params=params, headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
@@ -359,7 +360,7 @@ class JeyyAPIClient:
 			'artists': artists
 		}
 
-		async with self.session.get(self.base_url / 'discord/spotify', params=params) as resp:
+		async with self.session.get(self.base_url / 'discord/spotify', params=params, headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
@@ -392,7 +393,7 @@ class JeyyAPIClient:
 			'line_2': line_2,
 		}
 
-		async with self.session.get(self.base_url / 'discord/player', params=params) as resp:
+		async with self.session.get(self.base_url / 'discord/player', params=params, headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
@@ -402,7 +403,7 @@ class JeyyAPIClient:
 		return buffer
 
 	async def wheel(self, args: typing.Union[typing.List[str], typing.Tuple[str]]) -> dict:
-		async with self.session.get(self.base_url / 'discord/wheel', params={'args': args}) as resp:
+		async with self.session.get(self.base_url / 'discord/wheel', params={'args': args}, headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
@@ -429,7 +430,7 @@ class JeyyAPIClient:
 			'codeblock': str(codeblock),
 		}
 
-		async with self.session.get(self.base_url / 'discord/ansi', params=params) as resp:
+		async with self.session.get(self.base_url / 'discord/ansi', params=params, headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
