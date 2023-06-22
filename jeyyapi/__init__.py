@@ -136,6 +136,9 @@ class JeyyAPIClient:
 	
 	def dilute(self, image_url: str) -> BytesIO:
 		return self._image_fetch('dilute', image_url=str(image_url))
+	
+	def dither(self, image_url: str) -> BytesIO:
+		return self._image_fetch('dither', image_url=str(image_url))
 
 	def pattern(self, image_url: str) -> BytesIO:
 		return self._image_fetch('pattern', image_url=str(image_url))
@@ -149,14 +152,26 @@ class JeyyAPIClient:
 	def fire(self, image_url: str):
 		return self._image_fetch('fire', image_url=str(image_url))
 
+	def fall(self, image_url: str) -> BytesIO:
+		return self._image_fetch('fall', image_url=str(image_url))
+
 	def fan(self, image_url: str):
 		return self._image_fetch('fan', image_url=str(image_url))
+	
+	def flag(self, image_url: str) -> BytesIO:
+		return self._image_fetch('flag', image_url=str(image_url))
 
 	def melt(self, image_url: str):
 		return self._image_fetch('melt', image_url=str(image_url))
 
+	def contour(self, image_url: str, rainbow: bool = False) -> BytesIO:
+		return self._image_fetch('contour', image_url=str(image_url), rainbow=rainbow)
+
 	def cracks(self, image_url: str):
 		return self._image_fetch('cracks', image_url=str(image_url))
+
+	def im_emojify(self, image_url: str, size: int = 32):
+		return self._image_fetch('emojify', image_url=str(image_url), size=size)
 
 	def endless(self, image_url: str):
 		return self._image_fetch('endless', image_url=str(image_url))
@@ -271,6 +286,9 @@ class JeyyAPIClient:
 
 	def paint(self, image_url: str):
 		return self._image_fetch('paint', image_url=str(image_url))
+	
+	def painting(self, image_url: str):
+		return self._image_fetch('painting', image_url=str(image_url))
 
 	def shine(self, image_url: str):
 		return self._image_fetch('shine', image_url=str(image_url))
@@ -299,6 +317,9 @@ class JeyyAPIClient:
 	def half_invert(self, image_url: str) -> BytesIO:
 		return self._image_fetch('half_invert', image_url=str(image_url))
 	
+	def heart_locket(self, image_url: str, image_url_2: str = None):
+		return self._image_fetch('heart_locket', image_url=str(image_url), image_url_2=str(image_url_2) if image_url_2 else image_url_2)
+	
 	def roll(self, image_url: str) -> BytesIO:
 		return self._image_fetch('roll', image_url=str(image_url))
 
@@ -316,6 +337,9 @@ class JeyyAPIClient:
 
 	def ads(self, image_url: str) -> BytesIO:
 		return self._image_fetch('ads', image_url=str(image_url))
+
+	def billboard(self, image_url) -> BytesIO:
+		return self._image_fetch('billboard', image_url=str(image_url))
 
 	def bubble(self, image_url: str) -> BytesIO:
 		return self._image_fetch('bubble', image_url=str(image_url))
