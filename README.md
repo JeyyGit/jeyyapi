@@ -12,7 +12,7 @@ $ pip install git+https://github.com/JeyyGit/jeyyapi.git
 from jeyyapi import JeyyAPIClient
 
 # Create JeyyAPICLient instance
-client = JeyyAPIClient()
+client = JeyyAPIClient('YOUR_API_KEY_HERE')
 
 # fetch from `hearts` endpoint with its appropriate kwargs parameter
 # returns io.BytesIO for image and discord endpoints
@@ -23,7 +23,7 @@ image = await client.hearts(image_url='IMAGE_URL', rainbow=True)
 ```py
 from jeyyapi import JeyyAPIClient
 
-client = JeyyAPIClient()
+client = JeyyAPIClient('YOUR_API_KEY_HERE')
 
 # requires presence intent
 @bot.command()
