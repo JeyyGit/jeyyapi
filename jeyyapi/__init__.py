@@ -71,7 +71,7 @@ class JeyyAPIClient:
 		return result
 	
 	async def plat_nomor(self, plat: str):
-		async with self.session.get(self.base_url / 'general/upload_image', params={'plat': plat}, headers=self.headers) as resp:
+		async with self.session.get(self.base_url / 'general/plat_nomor', params={'plat': plat}, headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
