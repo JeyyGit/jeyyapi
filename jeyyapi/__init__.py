@@ -48,7 +48,7 @@ class JeyyAPIClient:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
-			result = await resp.text()
+			result = await resp.json()
 		return result
 	
 	async def endpoints(self):
@@ -66,7 +66,7 @@ class JeyyAPIClient:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
-			result = await resp.text()
+			result = await resp.json()
 
 		return result
 	
