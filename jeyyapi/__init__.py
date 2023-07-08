@@ -62,7 +62,7 @@ class JeyyAPIClient:
 	async def image_upload(self, image: typing.IO):
 		formdata = FormData()
 		formdata.add_field('image', BytesIO(image))
-		async with self.session.get(self.base_url / 'general/image_upload', data=formdata, headers=self.headers) as resp:
+		async with self.session.post(self.base_url / 'general/image_upload', data=formdata, headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
