@@ -1,4 +1,5 @@
 import aiohttp
+from aiohttp import FormData
 import typing
 import yarl
 import datetime
@@ -40,6 +41,43 @@ class JeyyAPIClient:
 			await self.close()
 		except:
 			pass
+
+	# general
+	async def ping(self):
+		async with self.session.get(self.base_url / 'general/ping') as resp:
+			if resp.status != 200:
+				raise APIError(await resp.text())
+			
+			result = await resp.text()
+		return result
+	
+	async def endpoints(self):
+		async with self.session.get(self.base_url / 'general/endpoints') as resp:
+			if resp.status != 200:
+				raise APIError(await resp.text())
+			
+			result = await resp.json()
+		return result
+	
+	async def image_upload(self, image: typing.IO):
+		formdata = FormData()
+		formdata.add_field('image', BytesIO(image))
+		async with self.session.get(self.base_url / 'general/upload_image', data=formdata, headers=self.headers) as resp:
+			if resp.status != 200:
+				raise APIError(await resp.text())
+			
+			result = await resp.text()
+
+		return result
+	
+	async def plat_nomor(self, plat: str):
+		async with self.session.get(self.base_url / 'general/upload_image', params={'plat': plat}, headers=self.headers) as resp:
+			if resp.status != 200:
+				raise APIError(await resp.text())
+			
+			result = await resp.json()
+
+		return result
 
 	# image
 	async def _image_fetch(self, endpoint, **params) -> BytesIO:
