@@ -49,7 +49,7 @@ class JeyyAPIClient:
 
 	# general
 	async def ping(self):
-		async with self.session.get(self.base_url / 'general/ping') as resp:
+		async with self.session.get(self.base_url / 'general/ping', headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
@@ -57,7 +57,7 @@ class JeyyAPIClient:
 		return result
 	
 	async def endpoints(self):
-		async with self.session.get(self.base_url / 'general/endpoints') as resp:
+		async with self.session.get(self.base_url / 'general/endpoints', headers=self.headers) as resp:
 			if resp.status != 200:
 				raise APIError(await resp.text())
 			
