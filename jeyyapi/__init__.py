@@ -5,6 +5,11 @@ import yarl
 import datetime
 from io import BytesIO
 
+try:
+	import discord
+except ImportError:
+	pass
+
 
 class APIError(Exception):
 	pass
@@ -431,7 +436,7 @@ class JeyyAPIClient:
 		buffer = BytesIO(data)
 		return buffer
 
-	async def spotify_from_object(self, spotify: 'discord.Spotify') -> BytesIO:
+	async def spotify_from_object(self, spotify: discord.Spotify) -> BytesIO:
 		if spotify.__class__.__name__ != 'Spotify':
 			raise TypeError(f'discord.Spotify is expected, {spotify.__class__.__name__} is passed instead.')
 
