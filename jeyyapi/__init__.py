@@ -96,6 +96,9 @@ class JeyyAPIClient:
 		buffer = BytesIO(data)
 		return buffer
 
+	async def bevel(self, image_url: str, level: typing.Optional[int] = 15) -> BytesIO:
+		return await self._image_fetch('bevel', image_url=str(image_url), level=int(level))
+	
 	async def patpat(self, image_url: str) -> BytesIO:
 		return await self._image_fetch('patpat', image_url=str(image_url))
 
